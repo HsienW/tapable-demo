@@ -1,11 +1,13 @@
-import { SyncHook, SyncBailHook } from 'tapable';
+import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook } from 'tapable';
 
 // Person 相當於一個 Tapable, 負責 event 的定義跟執行
-export const Person = function () {
+export const Tapable = function () {
     this.hooks = {
         start: new SyncHook(),
         parameter: new SyncHook(['parameter']),
-        brake: new SyncBailHook()
+        brake: new SyncBailHook(),
+        waterfall: new SyncWaterfallHook(['parameter']),
+        loop: new SyncLoopHook()
     };
 
     this.callHook = function () {
@@ -18,6 +20,14 @@ export const Person = function () {
 
     this.callBrakeHook = function () {
         this.hooks.brake.call();
+    }
+
+    this.callWaterfallHook = function (parameter) {
+        this.hooks.waterfall.call(parameter);
+    }
+
+    this.callLoopHook = function () {
+        this.hooks.loop.call();
     }
 }
 
