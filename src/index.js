@@ -51,3 +51,13 @@ fakeTapable.hooks.loop.tap('loopPlugin2', () => {
 });
 fakeTapable.callLoopHook();
 
+/** 遇到使用非同步 event 時用的 hooks **/
+
+fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin1', (callback) => {
+    console.log('async Parallel Plugin1 start');
+    setTimeout(() => {
+        callback();
+    }, 3000);
+});
+
+fakeTapable.callAsyncParallelHook(() => { console.log('callback is work'); });
