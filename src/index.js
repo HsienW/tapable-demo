@@ -79,6 +79,8 @@ fakeTapable.callAsyncParallelPromiseHook('asyncParallelPromise', () => {
     })
 });
 
+fakeTapable.callAsyncParallelPromiseHook().then(() => { console.log('我是 promise 的 callback'); });
+
 /** 不需等待全部並行的非同步 非同步 執行完的 hooks **/
 fakeTapable.hooks.asyncParallelBail.tapAsync('asyncParallelBailPlugin1', (callback) => {
     console.log('async Parallel Bail Plugin1 start');
