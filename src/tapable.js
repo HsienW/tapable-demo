@@ -1,4 +1,4 @@
-import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook, AsyncParallelHook } from 'tapable';
+import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook, AsyncParallelHook, AsyncParallelBailHook } from 'tapable';
 
 // Person 相當於一個 Tapable, 負責 event 的定義跟執行
 export const Tapable = function () {
@@ -8,7 +8,8 @@ export const Tapable = function () {
         brake: new SyncBailHook(),
         waterfall: new SyncWaterfallHook(['parameter']),
         loop: new SyncLoopHook(),
-        asyncParallel: new AsyncParallelHook()
+        asyncParallel: new AsyncParallelHook(),
+        asyncParallelBail: new AsyncParallelBailHook(),
     };
 
     this.callHook = function () {
@@ -33,6 +34,10 @@ export const Tapable = function () {
 
     this.callAsyncParallelHook = function (callBack) {
         this.hooks.asyncParallel.callAsync(callBack);
+    }
+
+    this.callAsyncParallelBailHook = function (callback) {
+        this.hooks.asyncParallelBail.callAsync(callback);
     }
 }
 
