@@ -70,6 +70,15 @@ fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin2', (callback) => {
 // final callback 會在全部非同步都執行完之後, 最後在執行
 fakeTapable.callAsyncParallelHook(() => { console.log('final callback is work'); });
 
+fakeTapable.callAsyncParallelPromiseHook('asyncParallelPromise', () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('執行 async Parallel Promise');
+            resolve();
+        }, 2000);
+    })
+});
+
 /** 不需等待全部並行的非同步 非同步 執行完的 hooks **/
 fakeTapable.hooks.asyncParallelBail.tapAsync('asyncParallelBailPlugin1', (callback) => {
     console.log('async Parallel Bail Plugin1 start');

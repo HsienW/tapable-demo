@@ -36,6 +36,11 @@ export const Tapable = function () {
         this.hooks.asyncParallel.callAsync(callBack);
     }
 
+
+    this.callAsyncParallelPromiseHook = function () {
+        return this.hooks.asyncParallel.promise();
+    }
+
     this.callAsyncParallelBailHook = function (callback) {
         this.hooks.asyncParallelBail.callAsync(callback);
     }
