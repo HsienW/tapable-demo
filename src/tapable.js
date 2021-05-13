@@ -1,4 +1,14 @@
-import { SyncHook, SyncBailHook, SyncWaterfallHook, SyncLoopHook, AsyncParallelHook, AsyncParallelBailHook } from 'tapable';
+import {
+    SyncHook,
+    SyncBailHook,
+    SyncWaterfallHook,
+    SyncLoopHook,
+    AsyncParallelHook,
+    AsyncParallelBailHook,
+    AsyncSeriesHook,
+    AsyncSeriesBailHook,
+    AsyncSeriesWaterfallHook
+} from 'tapable';
 
 // Person 相當於一個 Tapable, 負責 event 的定義跟執行
 export const Tapable = function () {
@@ -10,6 +20,9 @@ export const Tapable = function () {
         loop: new SyncLoopHook(),
         asyncParallel: new AsyncParallelHook(),
         asyncParallelBail: new AsyncParallelBailHook(),
+        asyncSeries: new AsyncSeriesHook(),
+        asyncSeriesBail: new AsyncSeriesBailHook(),
+        asyncSeriesWaterfall: new AsyncSeriesWaterfallHook(['parameter'])
     };
 
     this.callHook = function () {
@@ -43,6 +56,18 @@ export const Tapable = function () {
 
     this.callAsyncParallelBailHook = function (callback) {
         this.hooks.asyncParallelBail.callAsync(callback);
+    }
+
+    this.callAsyncSeriesHook = function () {
+        return this.hooks.asyncSeries.promise();
+    }
+
+    this.callAsyncSeriesBailHook = function () {
+        return this.hooks.asyncSeriesBail.promise();
+    }
+
+    this.callAsyncSeriesWaterfallHook = function () {
+        return this.hooks.asyncSeriesWaterfall.promise();
     }
 }
 
