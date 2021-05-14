@@ -5,9 +5,11 @@
 // hook.call();
 
 import {Tapable} from './tapable';
+import {SimulationWebpackPlugin} from './simulation-webpack-plugin';
 
 /** 最一般的 hooks 使用 **/
 const fakeTapable = new Tapable();
+const simulationWebpackPlugin = new SimulationWebpackPlugin();
 
 // fakeTapable.hooks.start.tap('logPlugin', () => console.log('hook is work'));
 // fakeTapable.callHook();
@@ -139,47 +141,55 @@ const fakeTapable = new Tapable();
 /** 串行非同步 event 執行的 hooks **/
 // 全部註冊的串行 event 中有一個執行完, 回傳不為 undefined 就立刻執行 final callback, 不會再執行後面的 event
 
-fakeTapable.hooks.asyncSeriesBail.tapPromise('asyncSeriesBailPlugin1', () => {
-    return new Promise((resolve, reject) => {
-        console.log('async Series Bail Plugin1 start');
-        setTimeout(() => {
-            console.log('執行 async Series Bail Plugin1');
-            resolve(undefined);
-        }, 8000);
-    });
+// fakeTapable.hooks.asyncSeriesBail.tapPromise('asyncSeriesBailPlugin1', () => {
+//     return new Promise((resolve, reject) => {
+//         console.log('async Series Bail Plugin1 start');
+//         setTimeout(() => {
+//             console.log('執行 async Series Bail Plugin1');
+//             resolve(undefined);
+//         }, 8000);
+//     });
+// });
+//
+// fakeTapable.hooks.asyncSeriesBail.tapPromise('asyncSeriesBailPlugin2', () => {
+//     return new Promise((resolve, reject) => {
+//         console.log('async Series Bail Plugin2 start');
+//         setTimeout(() => {
+//             console.log('執行 async Series Bail Plugin2');
+//             resolve(true);
+//         }, 1000);
+//     });
+// });
+//
+// // fakeTapable.callAsyncSeriesBailHook().then(() => { console.log('final callback'); });
+//
+//
+// /** 註冊多個非同步鏈式(waterfall) event 的 hooks 使用 **/
+// fakeTapable.hooks.asyncSeriesWaterfall.tapPromise('asyncSeriesWaterfallPlugin1', (result) => {
+//     return new Promise((resolve, reject) => {
+//         console.log('async Series Waterfall Plugin1 start');
+//         setTimeout(() => {
+//             console.log('執行 async Series Bail Plugin1', result);
+//             resolve(true);
+//         }, 3000);
+//     });
+// });
+//
+// fakeTapable.hooks.asyncSeriesWaterfall.tapPromise('asyncSeriesWaterfallPlugin2', (result) => {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             console.log('執行 async Series Bail Plugin2', result);
+//             resolve(false);
+//         }, 6000);
+//     });
+// });
+//
+// fakeTapable.callAsyncSeriesWaterfallHook().then(() => {
+//     console.log('final callback');
+// });
+
+/** 模擬自製的 Plugin 使用 hooks **/
+simulationWebpackPlugin.apply(fakeTapable);
+fakeTapable.callAsyncSeriesHook().then(() => {
+    console.log('自製模擬成功')
 });
-
-fakeTapable.hooks.asyncSeriesBail.tapPromise('asyncSeriesBailPlugin2', () => {
-    return new Promise((resolve, reject) => {
-        console.log('async Series Bail Plugin2 start');
-        setTimeout(() => {
-            console.log('執行 async Series Bail Plugin2');
-            resolve(true);
-        }, 1000);
-    });
-});
-
-// fakeTapable.callAsyncSeriesBailHook().then(() => { console.log('final callback'); });
-
-
-/** 註冊多個非同步鏈式(waterfall) event 的 hooks 使用 **/
-fakeTapable.hooks.asyncSeriesWaterfall.tapPromise('asyncSeriesWaterfallPlugin1', (result) => {
-    return new Promise((resolve, reject) => {
-        console.log('async Series Waterfall Plugin1 start');
-        setTimeout(() => {
-            console.log('執行 async Series Bail Plugin1', result);
-            resolve(true);
-        }, 3000);
-    });
-});
-
-fakeTapable.hooks.asyncSeriesWaterfall.tapPromise('asyncSeriesWaterfallPlugin2', (result) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('執行 async Series Bail Plugin2', result);
-            resolve(false);
-        }, 6000);
-    });
-});
-
-fakeTapable.callAsyncSeriesWaterfallHook().then(() => { console.log('final callback'); });
