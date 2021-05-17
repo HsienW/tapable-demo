@@ -1,14 +1,14 @@
-export const SimulationWebpackPlugin = function () {
-    this.apply = function (tapable) {
-        tapable.hooks.asyncParallel.tapPromise('simulationWebpackPlugin', () => {
-            return new Promise((resolve, reject) => {
-                console.log('simulation Webpack Plugin start');
-                setTimeout(() => {
-                    console.log('執行 simulation Webpack Plugin');
+const SimulationWebpackPlugin  = function (option) {
+    this.options = option;
+}
 
-                    resolve('成功');
-                }, 2000);
-            });
-        });
+SimulationWebpackPlugin.prototype.apply = function (compiler) {
+    if (compiler.hooks) { // webpack4 +
+        compiler.hooks.emit.tapAsync('simulation webpack plugin', function (compilation) {
+        })
+    } else {
+        compiler.plugin('emit', function (compilation, callback) {
+            callback()
+        })
     }
 }

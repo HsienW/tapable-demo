@@ -5,11 +5,9 @@
 // hook.call();
 
 import {Tapable} from './tapable';
-import {SimulationWebpackPlugin} from './simulation-webpack-plugin';
 
 /** 最一般的 hooks 使用 **/
 const fakeTapable = new Tapable();
-const simulationWebpackPlugin = new SimulationWebpackPlugin();
 
 // fakeTapable.hooks.start.tap('logPlugin', () => console.log('hook is work'));
 // fakeTapable.callHook();
@@ -54,24 +52,26 @@ const simulationWebpackPlugin = new SimulationWebpackPlugin();
 // });
 // fakeTapable.callLoopHook();
 //
-// /** 遇到使用並行的非同步 event 時用的 hooks **/
-// fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin1', (callback) => {
-//     console.log('async Parallel Plugin1 start');
-//     setTimeout(() => {
-//         console.log('執行 async Parallel Plugin1');
-//         callback();
-//     }, 3000);
-// });
-//
-// fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin2', (callback) => {
-//     console.log('async Parallel Plugin2 start');
-//     setTimeout(() => {
-//         console.log('執行 async Parallel Plugin2');
-//         callback();
-//     }, 5000);
-// });
-// // final callback 會在全部非同步都執行完之後, 最後在執行
-// fakeTapable.callAsyncParallelHook(() => { console.log('final callback is work'); });
+/** 遇到使用並行的非同步 event 時用的 hooks **/
+fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin1', (callback) => {
+    console.log('async Parallel Plugin1 start');
+    console.log('======================');
+    console.log(callback);
+    setTimeout(() => {
+        console.log('執行 async Parallel Plugin1');
+        // callback();
+    }, 3000);
+});
+
+fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin2', (callback) => {
+    console.log('async Parallel Plugin2 start');
+    setTimeout(() => {
+        console.log('執行 async Parallel Plugin2');
+        // callback();
+    }, 5000);
+});
+// final callback 會在全部非同步都執行完之後, 最後在執行
+fakeTapable.callAsyncParallelHook(() => { console.log('final callback is work'); });
 //
 // fakeTapable.callAsyncParallelPromiseHook('asyncParallelPromise', () => {
 //     return new Promise((resolve, reject) => {
@@ -188,8 +188,8 @@ const simulationWebpackPlugin = new SimulationWebpackPlugin();
 //     console.log('final callback');
 // });
 
-/** 模擬自製的 Plugin 使用 hooks **/
-simulationWebpackPlugin.apply(fakeTapable);
-fakeTapable.callAsyncSeriesHook().then(() => {
-    console.log('自製模擬成功')
-});
+// /** 模擬自製的 Plugin 使用 hooks **/
+// simulationWebpackPlugin.apply(fakeTapable);
+// fakeTapable.callAsyncSeriesHook().then(() => {
+//     console.log('自製模擬成功')
+// });
