@@ -5,9 +5,11 @@
 // hook.call();
 
 import {Tapable} from './tapable';
+import {SimulationWebpackPlugin} from './simulation-webpack-plugin'
 
 /** 最一般的 hooks 使用 **/
 const fakeTapable = new Tapable();
+const simulationWebpackPlugin = new SimulationWebpackPlugin({test: true});
 
 // fakeTapable.hooks.start.tap('logPlugin', () => console.log('hook is work'));
 // fakeTapable.callHook();
@@ -15,6 +17,14 @@ const fakeTapable = new Tapable();
 // /** 傳遞參數的 hooks 使用 **/
 // fakeTapable.hooks.parameter.tap('parameter', (hello) => console.log(`${hello} hook is work`));
 // fakeTapable.callParameterHook('Hi');
+
+fakeTapable.hooks.parameter.tap('test-simulation', (compiler) => {
+    console.log('進入 test-simulation');
+    console.log(compiler);
+    simulationWebpackPlugin.apply(compiler);
+});
+fakeTapable.callParameterHook(fakeTapable);
+
 //
 // /** 同時註冊多個 event 的 hooks 使用 **/
 // // 若是有個需求不管同時註冊多少個 event, 只想執行到 brakePlugin2
@@ -52,26 +62,26 @@ const fakeTapable = new Tapable();
 // });
 // fakeTapable.callLoopHook();
 //
-/** 遇到使用並行的非同步 event 時用的 hooks **/
-fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin1', (callback) => {
-    console.log('async Parallel Plugin1 start');
-    console.log('======================');
-    console.log(callback);
-    setTimeout(() => {
-        console.log('執行 async Parallel Plugin1');
-        // callback();
-    }, 3000);
-});
-
-fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin2', (callback) => {
-    console.log('async Parallel Plugin2 start');
-    setTimeout(() => {
-        console.log('執行 async Parallel Plugin2');
-        // callback();
-    }, 5000);
-});
-// final callback 會在全部非同步都執行完之後, 最後在執行
-fakeTapable.callAsyncParallelHook(() => { console.log('final callback is work'); });
+// /** 遇到使用並行的非同步 event 時用的 hooks **/
+// fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin1', (callback) => {
+//     console.log('async Parallel Plugin1 start');
+//     console.log('======================');
+//     console.log(callback);
+//     setTimeout(() => {
+//         console.log('執行 async Parallel Plugin1');
+//         // callback();
+//     }, 3000);
+// });
+//
+// fakeTapable.hooks.asyncParallel.tapAsync('asyncParallelPlugin2', (callback) => {
+//     console.log('async Parallel Plugin2 start');
+//     setTimeout(() => {
+//         console.log('執行 async Parallel Plugin2');
+//         // callback();
+//     }, 5000);
+// });
+// // final callback 會在全部非同步都執行完之後, 最後在執行
+// fakeTapable.callAsyncParallelHook(() => { console.log('final callback is work'); });
 //
 // fakeTapable.callAsyncParallelPromiseHook('asyncParallelPromise', () => {
 //     return new Promise((resolve, reject) => {
