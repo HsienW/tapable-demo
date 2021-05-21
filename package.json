@@ -6,15 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack",
-    "serve": "webpack serve --open"
+    "serve": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "html-webpack-plugin": "5.3.1",
+    "html-webpack-plugin": "4.5.2",
     "tapable": "2.2.0",
-    "webpack": "5.37.0",
-    "webpack-cli": "4.7.0",
-    "webpack-dev-server": "3.11.2"
+    "webpack": "4.44.0",
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "3.10.3"
   }
 }
