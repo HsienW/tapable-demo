@@ -1,15 +1,17 @@
+console.log('test');
+
 // import {SyncHook} from 'tapable';
 //
 // const hook = new SyncHook();
 // hook.tap('logPlugin', () => console.log('hook is work'));
 // hook.call();
 
-import {Tapable} from './tapable';
+// import {Tapable} from './tapable';
 import {SimulationWebpackPlugin} from './simulation-webpack-plugin'
 
 /** 最一般的 hooks 使用 **/
-const fakeTapable = new Tapable();
-const simulationWebpackPlugin = new SimulationWebpackPlugin({test: true});
+// const fakeTapable = new Tapable();
+// const simulationWebpackPlugin = new SimulationWebpackPlugin({test: true});
 
 // fakeTapable.hooks.start.tap('logPlugin', () => console.log('hook is work'));
 // fakeTapable.callHook();
@@ -18,12 +20,12 @@ const simulationWebpackPlugin = new SimulationWebpackPlugin({test: true});
 // fakeTapable.hooks.parameter.tap('parameter', (hello) => console.log(`${hello} hook is work`));
 // fakeTapable.callParameterHook('Hi');
 
-fakeTapable.hooks.parameter.tap('test-simulation', (compiler) => {
-    console.log('進入 test-simulation');
-    console.log(compiler);
-    simulationWebpackPlugin.apply(compiler);
-});
-fakeTapable.callParameterHook(fakeTapable);
+// fakeTapable.hooks.parameter.tap('test-simulation', (compiler) => {
+//     console.log('進入 test-simulation');
+//     console.log(compiler);
+//     simulationWebpackPlugin.apply(compiler);
+// });
+// fakeTapable.callParameterHook(fakeTapable);
 
 //
 // /** 同時註冊多個 event 的 hooks 使用 **/

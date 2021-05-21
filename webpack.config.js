@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const SimulationWebpackPlugin = require('./src/simulation-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -9,14 +10,15 @@ module.exports = {
     },
     devtool: false,
     devServer: {
-        contentBase: './dist',
-        historyApiFallback: true, // 不做跳轉
-        inline: true
+        inline: true,
+        port: 8080,
+        historyApiFallback: true
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
-        })
+        }),
+        // new SimulationWebpackPlugin({test: true})
     ]
 }
