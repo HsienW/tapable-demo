@@ -31,8 +31,11 @@ module.exports = {
                     }
                 },
                 {
-                    loader: './src/webpack-test/loader/simulation-webpack-loader.js'
+                    loader: './src/webpack-test/loader/simulation-webpack-async-loader.js'
                 }
+                // {
+                //     loader: './src/webpack-test/loader/simulation-webpack-loader.js'
+                // }
             ]
         }]
     },
