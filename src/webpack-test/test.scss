@@ -1,0 +1,8 @@
+.test {
+  color: red;
+}
+
+.test-extend {
+  @extend .test;
+  font-size: 20px;
+}
