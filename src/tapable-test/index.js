@@ -1,5 +1,3 @@
-console.log('test');
-
 // import {SyncHook} from 'tapable';
 //
 // const hook = new SyncHook();
@@ -7,7 +5,6 @@ console.log('test');
 // hook.call();
 
 // import {Tapable} from './tapable';
-import {SimulationWebpackPlugin} from './simulation-webpack-plugin'
 
 /** 最一般的 hooks 使用 **/
 // const fakeTapable = new Tapable();
