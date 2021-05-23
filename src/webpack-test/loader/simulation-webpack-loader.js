@@ -1,5 +1,6 @@
 // const less = require('less');
 const SimulationLoader = function (source, map) {
+    console.log(source);
     return source.replace(/console\.log\(.*\);?\n/g, '');
 }
 

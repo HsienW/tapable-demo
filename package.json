@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "clean-webpack-plugin": "4.0.0-alpha.0",
     "html-webpack-plugin": "4.5.2",
+    "inspect-loader": "^2.0.0",
     "less": "4.1.1",
     "sass": "1.34.0",
     "tapable": "2.2.0",
