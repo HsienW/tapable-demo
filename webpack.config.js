@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 // const SimulationWebpackPlugin = require('./src/simulation-webpack-plugin')
 
 module.exports = {
@@ -17,10 +18,25 @@ module.exports = {
         port: 8080,
         historyApiFallback: true
     },
-    module:{
-        rules:[{
-            test: /\.(js)$/,
-            use: './src/simulation-webpack-loader.js'
+    module: {
+        rules: [{
+            test: /\.js$/,
+            use: [
+                {
+                    loader: 'inspect-loader',
+                    options: {
+                        callback(inspect) {
+                            console.log(inspect.arguments);
+                        }
+                    }
+                },
+                {
+                    loader: './src/webpack-test/loader/simulation-webpack-async-loader.js'
+                }
+                // {
+                //     loader: './src/webpack-test/loader/simulation-webpack-loader.js'
+                // }
+            ]
         }]
     },
     plugins: [
@@ -33,5 +49,6 @@ module.exports = {
             filename: 'index.html',
         }),
         // new SimulationWebpackPlugin({test: true})
+        new CleanWebpackPlugin(),
     ]
 }
