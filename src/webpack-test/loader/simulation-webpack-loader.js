@@ -1,6 +1,7 @@
 // const less = require('less');
 const SimulationLoader = function (source, map) {
-    console.log('123456');
+    console.log('===== Simulation Loader =====');
+    console.log(map);
     console.log(source);
     return source.replace(/console\.log\(.*\);/g, '');
 }

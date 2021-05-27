@@ -26,6 +26,7 @@ module.exports = {
                     loader: 'inspect-loader',
                     options: {
                         callback(inspect) {
+                            console.log('===== inspect =====');
                             console.log(inspect.arguments);
                         }
                     }
