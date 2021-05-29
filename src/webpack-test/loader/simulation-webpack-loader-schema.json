@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "boolean"
+    },
+    "test": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

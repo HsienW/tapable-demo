@@ -34,8 +34,17 @@ module.exports = {
                 // {
                 //     loader: './src/webpack-test/loader/fake-sass-loader/fake-sass-loader.js'
                 // }
+                // {
+                //     loader: './src/webpack-test/loader/simulation-webpack-loader.js?limt=1024&name=[hash:8].[ext]\'',
+                //     options: {
+                //         test: 'is option test'
+                //     }
+                // }
                 {
-                    loader: './src/webpack-test/loader/simulation-webpack-loader.js'
+                    loader: './src/webpack-test/loader/simulation-webpack-loader.js',
+                    options: {
+                        test: 'is option test'
+                    }
                 }
             ]
         }]
