@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const SimulationWebpackPlugin = require('./src/webpack-test/plugin/simulation-webpack-plugin')
+const SimulationWebpackPlugin = require('./src/webpack-test/plugin/simulation-webpack-plugin');
+const WebpackBPlugin = require('./src/webpack-test/plugin/simulation-webpack-b-plugin');
 
 module.exports = {
     mode: 'development',
@@ -59,6 +60,7 @@ module.exports = {
             filename: 'index.html',
         }),
         new SimulationWebpackPlugin({test: true}),
+        new WebpackBPlugin({test: true}),
         new CleanWebpackPlugin(),
     ]
 }
