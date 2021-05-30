@@ -32,7 +32,7 @@ const SimulationLoader = function (source, map) {
     // webpack 預設 loader 編譯過的檔案 or dependency 沒變動時 result 是會有暫存的
     // 目的是為了要因應某些會需要大量編譯的 loader 例如: babel-loader
     // 而 this.cacheable 可以關閉掉預設的暫存機制
-    this.cacheable(false);
+    // this.cacheable(false);
     return source.replace(/console\.log\(.*\);/g, '');
 }
 
