@@ -9,6 +9,7 @@ SimulationWebpackPlugin.prototype.apply = function (compiler) {
 
     compiler.hooks.run.tapAsync('MyPlugin', (compilation, callback) => {
         console.log('+++++++++ call plugin tapAsync +++++++++');
+        console.log(compilation);
         setTimeout(()=>{
             console.log('+++++++++ tapAsync 執行 +++++++++');
             callback()
