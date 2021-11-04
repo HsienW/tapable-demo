@@ -2,7 +2,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const SimulationWebpackPlugin = require('./src/webpack-test/plugin/simulation-webpack-plugin');
 const WebpackBPlugin = require('./src/webpack-test/plugin/simulation-webpack-b-plugin');
-const SimulationWebpackFilePlugin  = require('./src/webpack-test/plugin/simulation-webpack-file-plugin');
+const SimulationWebpackFilePlugin = require('./src/webpack-test/plugin/simulation-webpack-file-plugin');
+const SimulationWebpackStringPlugin = require('./src/webpack-test/plugin/simulation-webpack-string-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
@@ -56,13 +58,17 @@ module.exports = {
         //     template: './src/tapable-test/index.html',
         //     filename: 'index.html',
         // }),
+        new webpack.BannerPlugin({
+            banner: 'hello world'
+        }),
         new HtmlWebpackPlugin({
             template: './src/webpack-test/index.html',
             filename: 'index.html',
         }),
-        new SimulationWebpackPlugin({test: true}),
-        new WebpackBPlugin({test: true}),
-        new SimulationWebpackFilePlugin(),
+        // new SimulationWebpackPlugin({test: true}),
+        // new WebpackBPlugin({test: true}),
+        // new SimulationWebpackFilePlugin(),
+        new SimulationWebpackStringPlugin({hello: 'hello'}),
         new CleanWebpackPlugin(),
     ]
 }
